@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require_relative 'server'
 require_relative 'link'
+require_relative 'tag'
 
 
 class BookmarkManager < Sinatra::Base
@@ -16,7 +17,9 @@ class BookmarkManager < Sinatra::Base
   post '/links' do
   	url = params["url"]
   	title = params["title"]
-  	Link.create(:url => url, :title => title)
+  	tags = params["tags"].split(" ").map{|tag| Tag.first_or_create(:text => tag)} 
+		Link.create(:url => url, :title => title, :tags => tags)
+
   	redirect to('/')	
   end
 
