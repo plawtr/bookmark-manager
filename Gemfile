@@ -10,6 +10,7 @@ gem 'sinatra'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
 gem 'dm-transactions'
+gem 'bcrypt-ruby'
 
 group :development, :test do
 	gem 'rspec'
