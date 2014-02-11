@@ -8,14 +8,14 @@ require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
 
-Capybara.app = BoomarkManager
+Capybara.app = BookmarkManager
 
-class BoomarkManagerWorld
+class BookmarkManagerWorld
   include Capybara::DSL
   include RSpec::Expectations
   include RSpec::Matchers
 end
 
 World do
-  BoomarkManagerWorld.new
+  BookmarkManagerWorld.new
 end
