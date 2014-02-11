@@ -1,5 +1,7 @@
 require 'sinatra/base'
+require_relative 'server'
 require_relative 'link'
+
 
 class BookmarkManager < Sinatra::Base
 
@@ -11,10 +13,11 @@ class BookmarkManager < Sinatra::Base
     erb :index
   end
 
-  post '/' do
-  	session[:links] << Link.new(params[:new_link])
-  	@links = session[:links]
-  	erb :index	
+  post '/links' do
+  	url = params["url"]
+  	title = params["title"]
+  	Link.create(:url => url, :title => title)
+  	redirect to('/')	
   end
 
 

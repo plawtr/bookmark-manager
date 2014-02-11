@@ -13,7 +13,7 @@ require 'bookmark-manager'
 require 'database_cleaner'
 require 'capybara/rspec'
 
-Capybara.app = Sinatra::Application
+Capybara.app = BookmarkManager
 
 
 RSpec.configure do |config|
