@@ -9,8 +9,4 @@ class Link
 
 		has n, :tags, :through => Resource 
 
-	# def initialize(uri)
-	# 	@uri = uri
-	# end
-
 end

@@ -14,6 +14,7 @@ module Controllers
     helpers ServerHelper
 
   	set :views, File.join(File.dirname(__FILE__), '../views')
+  	set :public, File.join(File.dirname(__FILE__), '../public')
 
   end
 end
