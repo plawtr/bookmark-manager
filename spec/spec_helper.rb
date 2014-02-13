@@ -8,12 +8,14 @@
 
 ENV["RACK_ENV"] = 'test'
 
-require 'server'
-require 'bookmark-manager'
+
+
 require 'database_cleaner'
 require 'capybara/rspec'
+require './app/router'
+require './app/server'
 
-Capybara.app = BookmarkManager
+Capybara.app = Router
 
 
 RSpec.configure do |config|

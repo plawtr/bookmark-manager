@@ -3,9 +3,7 @@ require 'data_mapper'
 env = ENV["RACK_ENV"] || "development"
 DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}") 
 
-require './lib/link'
-require './lib/tag'
-require './lib/user'
+Dir.glob(File.join(File.dirname(__FILE__), 'models', '*.rb'), &method(:require))
 
 DataMapper.finalize
 
