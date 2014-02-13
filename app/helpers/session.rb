@@ -14,5 +14,18 @@ module SessionHelpers
 		fill_in 'password', :with => password
 		click_button 'Sign in'
 	end
-	
+
+	def password_recovery(email, old_password, new_password)
+		sign_up(email, old_password)
+		sign_in(email, old_password)
+		click_button "Sign out"
+		visit('/sessions/forgot_password')
+		fill_in 'email', :with => email
+		click_button 'Submit'
+		user = User.first(:email => email)
+		visit "/users/reset_password/#{user.password_token}"
+		fill_in 'password', :with => new_password
+		
+	end
+
 end

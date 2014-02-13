@@ -35,7 +35,7 @@ module Controllers
 		  	user.password_token_timestamp = Time.now
 		  	user.save
 		  	# send_message(email, user.password_token)
-		  	flash[:notice] = "Temporary password sent to #{email}. Token: #{user.password_token}. Time: #{user.password_token_timestamp}"
+		  	flash[:notice] = "Temporary password sent to #{email}. Visit: /users/reset_password/#{user.password_token} . Time: #{user.password_token_timestamp}"
 		  	redirect to '/'
 		  else
 		  	flash[:notice] = "Cannot find #{email}, sorry."

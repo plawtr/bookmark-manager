@@ -84,7 +84,7 @@ feature "User forgets the password" do
 
 	scenario "while not signed up and requests a password recovery token" do
 		sign_up('test@test.com', 'test')
-		sign_in('test@test.com', 'test')
+				sign_in('test@test.com', 'test')
 		click_button "Sign out"
 		visit('/sessions/forgot_password')
 		fill_in 'email', :with => "wrong@test.com"
@@ -92,5 +92,26 @@ feature "User forgets the password" do
 		expect(page).to have_content("Cannot find wrong@test.com, sorry.")
 	end
 
-	
+	scenario "while already signed up and uses a password recovery token giving a new password" do
+		password_recovery('test@test.com', 'test', 'new_password')
+		fill_in :password_confirmation, :with =>"new_password"
+		click_button "Update"
+		user = User.first(:email => 'test@test.com')
+		expect(page).to have_content("Password updated.")
+		expect(user.password_token).to be_nil
+		expect(user.password_token_timestamp).to be_nil
+		expect(User.authenticate('test@test.com', "new_password")).to be_true
+	end
+
+	scenario "while already signed up and uses a password recovery token giving a new password and a wrong confirmation" do
+		password_recovery('test@test.com', 'test', 'new_password')
+		fill_in :password_confirmation, :with =>"wrong_password"
+		click_button "Update"
+		expect(page).not_to have_content("Password updated.")
+		expect(User.authenticate('test@test.com', "new_password")).to be_false
+		fill_in :password_confirmation, :with =>"wrong_password"
+		click_button "Update"
+		expect(page).to have_content("Password updated.")
+	end
+
 end
